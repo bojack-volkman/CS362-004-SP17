@@ -643,9 +643,9 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int cardAdventurer(struct gameState *state, int currentPlayer, int z, int drawntreasure, int *temphand)
+int cardAdventurer(struct gameState *state, int z, int drawntreasure, int *temphand)
 {
-	
+	int currentPlayer = 0;
 	int cardDrawn;
 	
 	while(drawntreasure<2){
@@ -669,8 +669,9 @@ int cardAdventurer(struct gameState *state, int currentPlayer, int z, int drawnt
       return 0;
 }
 
-int cardSmithy(struct gameState *state, int currentPlayer, int handPos)
+int cardSmithy(struct gameState *state, int currentPlayer)
 {
+	int handPos = 0;
 	//+3 Cards
 	int i;
       for (i = 0; i < 3; i++)
@@ -761,7 +762,7 @@ int cardMine(struct gameState *state, int currentPlayer, int choice1, int choice
 	  return -1;
 	}
 
-      gainCard(choice2, state, 2, currentPlayer);
+      gainCard(choice2, state, 2, 0);
 
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
@@ -788,7 +789,7 @@ int cardVillage(struct gameState *state, int currentPlayer, int handPos)
       state->numActions = state->numActions + 2;
 			
       //discard played card from hand
-      discardCard(handPos, currentPlayer, state, 0);
+      discardCard(handPos, currentPlayer, &state, 0);
       return 0;
 }
 
@@ -817,7 +818,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
     case adventurer:
       
-	  return cardAdventurer(state, currentPlayer, z, drawntreasure, temphand);
+	  return cardAdventurer(state, z, drawntreasure, temphand);
 			
     case council_room:
       //+4 Cards
@@ -881,7 +882,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
       
-	  return cardSmithy(state, currentPlayer, handPos);
+	  return cardSmithy(state, currentPlayer);
 		
     case village:
       
