@@ -17,7 +17,7 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-#define UNITTEST "getCost()"
+#define UNITTEST "getCost(int)"
 
 int main() {
 	
