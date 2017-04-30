@@ -1,5 +1,5 @@
 /*
- * cardtest1.c
+ * cardtest2.c
  *
  
  */
@@ -17,7 +17,7 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-#define TESTCARD "Village"
+#define TESTCARD "Adventurer"
 
 int main() {
 	//note: used instructor file as template for this test
@@ -28,9 +28,10 @@ int main() {
 	int turnAction = 1;
 	int xtraBuys = 0;
     int shuffledCards = 0;
+	int temphand[MAX_HAND];
 
     int test_success = 1;
-	int i, j, m;
+	int i = 0, j, m;
     int handpos = 0, bonus = 0;
     int remove1, remove2;
     int seed = 1000;
@@ -47,23 +48,23 @@ int main() {
 	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
 	// ----------- TEST 1: choice1 = 1 = +2 cards --------------
-	printf("TEST 1:\n");
+	printf("TEST 2:\n");
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	
-	playVillage(&testG, thisPlayer, handpos);
+	discarded = playAdventurer(&testG, thisPlayer, newCards, i, 0, temphand);
 	
-	//Test that player drew a card
-	newCards = 1;
+	//Test that player drew two cards
+	newCards = 2;
 	printf("\n Hand count = %d, Expected hand count = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	test_success = testassert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded, test_success);
 	
 	printf("\n Deck count = %d, Expected deck count = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] + shuffledCards - newCards);
 	test_success = testassert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] + shuffledCards - newCards, test_success);
 	
-	//Test that player got 2 extra actions
-	xtraActions = 2;
+	//Test that player got 0 extra actions
+	xtraActions = 0;
 	printf("\n Actions = %d, Expected number of actions = %d\n", testG.numActions - turnAction, G.numActions + xtraActions - turnAction);
 	test_success = testassert((testG.numActions - turnAction) == (G.numActions + xtraActions - turnAction), test_success);
 	
