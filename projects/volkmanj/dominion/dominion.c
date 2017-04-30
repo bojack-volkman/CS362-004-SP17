@@ -672,7 +672,7 @@ int playAdventurer(struct gameState *state, int currentPlayer, int cardDrawn, in
 	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
 	z=z-1;
       }
-      return 0; //returns discarded cards for cardtest2
+      return 0;
 }
 
 int playSmithy(struct gameState *state, int handPos, int currentPlayer)
