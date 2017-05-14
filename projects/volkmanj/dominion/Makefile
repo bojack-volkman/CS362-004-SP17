@@ -1,4 +1,19 @@
-CFLAGS = -Wall -fpic -coverage -lm
+CC = gcc
+CFLAGS = -Wall -fpic -coverage -lm -fprofile-arcs -ftest-coverage -g
+OBJ = dominion.o rngs.o
+
+TEST_PATH = ./randTests/
+TEST_FILES = $(TEST_PATH)randtests.h $(TEST_PATH)test_template.o
+TEST_TYPE = -b
+
+define runtest =
+$(TEST_PATH)$(word 2, $^) &> $@result.out
+gcov $(TEST_TYPE) $< >> $@result.out
+cat $<.gcov >> $@result.out
+endef
+
+######################
+#### BASE OBJECTS ####
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -29,13 +44,28 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 	
+#######################
+##### RANDOM TESTS ####
 
+test_template.o: $(TEST_PATH)test_template.c $(TEST_PATH)randtests.h
+	gcc $(CFLAGS) -c $(TEST_PATH)test_template.c -o test_template.o
+	
+## adventurer
 
+randomtestadventurer.out: randomtestadventurer
+	cat dominion.c.gcov >> randomtestadventurer.out
+	
+randomtestadventurer: $(TEST_PATH)randomtestadventurer.c $(TEST_FILES) $(OBJ)
+	gcc $(CFLAGS) -o randomtestadventurer -g $(TEST_PATH)randomtestadventurer.c $(TEST_PATH)test_template.o $(OBJ)
+	./randomtestadventurer > randomtestadventurer.out
+	gcov dominion.c >> randomtestadventurer.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
+.PHONY: clean
+
 clean:
-	rm -f *.o playdom.exe playdom test.exe test player player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
+	rm -f *.o *.out playdom.exe playdom test.exe test player player.exe testInit randomtestadventurer testInit.exe *.gcov *.gcda *.gcno *.so
