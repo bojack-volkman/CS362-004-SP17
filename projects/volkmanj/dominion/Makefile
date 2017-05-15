@@ -59,6 +59,25 @@ randomtestadventurer: $(TEST_PATH)randomtestadventurer.c $(TEST_FILES) $(OBJ)
 	gcc $(CFLAGS) -o randomtestadventurer -g $(TEST_PATH)randomtestadventurer.c $(TEST_PATH)test_template.o $(OBJ)
 	./randomtestadventurer > randomtestadventurer.out
 	gcov dominion.c >> randomtestadventurer.out
+	
+## smithy
+randomtestcard1.out: randomtestcard1
+	cat dominion.c.gcov >> randomtestcard1.out
+	
+randomtestcard1: $(TEST_PATH)randomtestcard1.c $(TEST_FILES) $(OBJ)
+	gcc $(CFLAGS) -o randomtestcard1 -g $(TEST_PATH)randomtestcard1.c $(TEST_PATH)test_template.o $(OBJ)
+	./randomtestcard1 > randomtestcard1.out
+	gcov dominion.c >> randomtestcard1.out
+	
+## Village
+randomtestcard2.out: randomtestcard2
+	cat dominion.c.gcov >> randomtestcard2.out
+	
+randomtestcard2: $(TEST_PATH)randomtestcard2.c $(TEST_FILES) $(OBJ)
+	gcc $(CFLAGS) -o randomtestcard2 -g $(TEST_PATH)randomtestcard2.c $(TEST_PATH)test_template.o $(OBJ)
+	./randomtestcard2 > randomtestcard2.out
+	gcov dominion.c >> randomtestcard2.out
+
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
@@ -68,4 +87,6 @@ all: playdom player testDrawCard testBuyCard badTestDrawCard
 .PHONY: clean
 
 clean:
-	rm -f *.o *.out playdom.exe playdom test.exe test player player.exe testInit randomtestadventurer testInit.exe *.gcov *.gcda *.gcno *.so
+	rm -f *.o *.out playdom.exe playdom test.exe test player player.exe testInit randomtestadventurer randomtestcard1 testInit.exe *.gcov *.gcda *.gcno *.so
+	
+

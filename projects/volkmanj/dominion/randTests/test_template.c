@@ -23,9 +23,9 @@ void test_print(int *arr, int n, char *msg){
 	printf("*****************\n");
 }
 
-void makeCards(struct gameState *G, int *cardCount, int (*cards)[MAX_DECK]){
+void makeCards(struct gameState *G, int *cardCount, int (*cards)[MAX_DECK], int size){
 	int i;
-	int rnd = rand() % (MAX_DECK + 1);
+	int rnd = rand() % (size + 1);
 
 	for (i = 0; i < rnd; i++){
 		cards[G->whoseTurn][i] = rand() % (treasure_map + 1);
@@ -44,9 +44,9 @@ void setupGame(struct gameState *G, struct gameState *testStatus){
 	initializeGame(playerCount, k, seed, G);
 	G->whoseTurn = whoseTurn;
 
-	makeCards(G, G->deckCount, G->deck);
-	makeCards(G, G->handCount, G->hand);
-	makeCards(G, G->discardCount, G->discard);
+	makeCards(G, G->deckCount, G->deck, MAX_DECK);
+	makeCards(G, G->handCount, G->hand, MAX_HAND);
+	makeCards(G, G->discardCount, G->discard, MAX_DECK);
 
 	memcpy(testStatus, G, sizeof(struct gameState));
 

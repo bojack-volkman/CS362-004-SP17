@@ -36,7 +36,7 @@ void runTest(struct gameState *G, struct gameState *testStatus) {
   }
   //compares all memory of gamestates
   test_assert(!memcmp(testStatus->hand[whoseTurn], G->hand[whoseTurn], MAX_HAND), "Drew Treasure");
-  test_assert(!memcmp(testStatus, G, sizeof(struct gameState)), "Affected Game State");
+  test_assert(!memcmp(testStatus, G, sizeof(struct gameState)), "Affected Gamestate Size");
 
 }
 

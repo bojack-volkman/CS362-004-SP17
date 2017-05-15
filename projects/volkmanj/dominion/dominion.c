@@ -669,9 +669,8 @@ int cardAdventurer(struct gameState *state, int z, int drawntreasure, int *temph
       return 0;
 }
 
-int cardSmithy(struct gameState *state, int currentPlayer)
+int cardSmithy(struct gameState *state, int currentPlayer, int handPos)
 {
-	int handPos = 0;
 	//+3 Cards
 	int i;
       for (i = 0; i < 3; i++)
@@ -882,7 +881,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
       
-	  return cardSmithy(state, currentPlayer);
+	  return cardSmithy(state, currentPlayer, handPos);
 		
     case village:
       
