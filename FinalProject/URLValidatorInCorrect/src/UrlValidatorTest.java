@@ -59,13 +59,63 @@ public class UrlValidatorTest extends TestCase {
    
    public void testIsValid()
    {
-	   String myURL = makeURLStringToTest(0, 0, 0, 0, 0, 0);
-	   System.out.println(myURL);	//Debug
+	   int num_schemes = 9;
+	   int num_auths = 19;
+	   int num_ports = 7;
+	   int num_paths = 10;
+	   int num_options = 15;
+	   int num_queries = 3;
 	   
-	   Boolean expectedValidity = checkExpectedValidity(0, 0, 0, 0, 0, 0);
-	   System.out.println(expectedValidity);
+	   int cases_passed = 0, cases_failed = 0, total_cases = 0;
+	   String myURL;
+	   Boolean expectedValidity, actualValidity;
+	   UrlValidator urlValidator = new UrlValidator();
+	   
+	   for (int i = 0; i < num_schemes; i++) {
+		   
+		   for (int j = 0; j < num_auths; j++) {
+			   
+			   for (int k = 0; k < num_ports; k++) {
+				   
+				   for (int l = 0; l < num_paths; l++) {
+					   
+					   for (int m = 0; m < num_options; m++) {
+						   
+						   for (int n = 0; n < num_queries; n++) {
+							   
+							   myURL = makeURLStringToTest(i, j, k, l, m, n);
+							   expectedValidity = checkExpectedValidity(i, j, k, l, m, n);
+							   actualValidity = urlValidator.isValid(myURL);
+							   
+							   if (!(expectedValidity == actualValidity)) {
+								   cases_failed++;
+								   System.out.println("Case failed: " + myURL + " -- Expected return value of " + expectedValidity.toString().toUpperCase() + " but got " + actualValidity.toString().toUpperCase());
+							   }
+							   else {
+								   cases_passed++;
+							   }
+							   
+							   total_cases++;
+							   
+						   }
+						   
+					   }
+					   
+				   }
+				   
+			   }
+			   
+		   }
+		   
+	   }
+	   
+	   System.out.println();
+	   System.out.println("==================SUMMARY=====================");
+	   System.out.println("Cases passed: " + cases_passed + " out of " + total_cases);
+	   System.out.println("Cases failed: " + cases_failed + " out of " + total_cases);	   
 	   
    }
+   
    
    public String makeURLStringToTest (int scheme_index, int auth_index, int port_index, int path_index, int path_option, int query_index) {
    
@@ -77,7 +127,7 @@ public class UrlValidatorTest extends TestCase {
 	   String query_choice = test_queries[query_index].item;
 	   
 	   //Debug
-	   System.out.println(scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
+	   //System.out.println(scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
 	   
 	   return (scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
 	   
@@ -93,11 +143,102 @@ public class UrlValidatorTest extends TestCase {
 	   Boolean query_val = test_queries[query_index].valid;
 	   
 	   //Debug
-	   System.out.println(scheme_val && auth_val && port_val && path_val && option_val && query_val);
+	   //System.out.println(scheme_val && auth_val && port_val && path_val && option_val && query_val);
 	   
 	   return (scheme_val && auth_val && port_val && path_val && option_val && query_val);
 	   
    }
+   
+   /************************************/
+   public void testIsValidMod()
+   {
+	   int num_schemes = 9;
+	   int num_auths = 19;
+	   int num_ports = 7;
+	   int num_paths = 10;
+	   int num_queries = 3;
+	   
+	   int cases_passed = 0, cases_failed = 0, total_cases = 0;
+	   String myURL;
+	   Boolean expectedValidity, actualValidity;
+	   UrlValidator urlValidator = new UrlValidator();
+	   
+	   for (int i = 0; i < num_schemes; i++) {
+		   
+		   for (int j = 0; j < num_auths; j++) {
+			   
+			   for (int k = 0; k < num_ports; k++) {
+				   
+				   for (int l = 0; l < num_paths; l++) {
+						   
+						   for (int n = 0; n < num_queries; n++) {
+							   
+							   myURL = makeURLStringToTestMod(i, j, k, l, n);
+							   expectedValidity = checkExpectedValidityMod(i, j, k, l, n);
+							   actualValidity = urlValidator.isValid(myURL);
+							   
+							   if (!(expectedValidity == actualValidity)) {
+								   cases_failed++;
+								   System.out.println("Case failed: " + myURL + " -- Expected return value of " + expectedValidity.toString().toUpperCase() + " but got " + actualValidity.toString().toUpperCase());
+							   }
+							   else {
+								   cases_passed++;
+							   }
+							   
+							   total_cases++;
+							   
+						   }
+					   
+				   }
+				   
+			   }
+			   
+		   }
+		   
+	   }
+	   
+	   System.out.println();
+	   System.out.println("==================SUMMARY=====================");
+	   System.out.println("Cases passed: " + cases_passed + " out of " + total_cases);
+	   System.out.println("Cases failed: " + cases_failed + " out of " + total_cases);	   
+	   
+   }
+   
+   
+   public String makeURLStringToTestMod (int scheme_index, int auth_index, int port_index, int path_index, int query_index) {
+   
+	   String scheme_choice = test_schemes[scheme_index].item;
+	   String auth_choice = test_auths[auth_index].item;
+	   String port_choice = test_ports[port_index].item;
+	   String path_choice = test_paths[path_index].item;
+	   String query_choice = test_queries[query_index].item;
+	   
+	   //Debug
+	   //System.out.println(scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
+	   
+	   return (scheme_choice + auth_choice + port_choice + path_choice + query_choice);
+	   
+   }
+   
+   public Boolean checkExpectedValidityMod (int scheme_index, int auth_index, int port_index, int path_index, int query_index) {
+	   
+	   Boolean scheme_val = test_schemes[scheme_index].valid;
+	   Boolean auth_val = test_auths[auth_index].valid;
+	   Boolean port_val = test_ports[port_index].valid;
+	   Boolean path_val = test_paths[path_index].valid;
+	   Boolean query_val = test_queries[query_index].valid;
+	   
+	   //Debug
+	   //System.out.println(scheme_val && auth_val && port_val && path_val && option_val && query_val);
+	   
+	   return (scheme_val && auth_val && port_val && path_val && query_val);
+	   
+   }
+   
+   
+   /*************************************/
+   
+   
    
    public void testAnyOtherUnitTest()
    {
