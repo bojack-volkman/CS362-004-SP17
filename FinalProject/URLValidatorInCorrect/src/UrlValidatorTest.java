@@ -150,6 +150,22 @@ public class UrlValidatorTest extends TestCase {
    
    public void testAnyOtherUnitTest()
    {
+	   UrlValidator urlVal = new UrlValidator();
+	   
+	   //AO: Hijacking this function to test some of my hunches about bugs.
+	   
+	   //Query bug - does not accept queries. 1 and 2 fail, 3 passes b/c the query is the empty string (basically nonexistent).
+	   //assert(checkExpectedValidity(0,0,0,0,0) == urlVal.isValid(makeURLStringToTest(0,0,0,0,0)));
+	   //assert(checkExpectedValidity(0,0,0,0,1) == urlVal.isValid(makeURLStringToTest(0,0,0,0,1)));
+	   //assert(checkExpectedValidity(0,0,0,0,2) == urlVal.isValid(makeURLStringToTest(0,0,0,0,2)));
+	   
+	   //Empty scheme bug - if the scheme is the empty string i.e. doesn't exist, the URL does not pass .
+	   //1 should pass (valid), 2 should pass (invalid), 
+	   //assert(checkExpectedValidity(0,0,0,0,2) == urlVal.isValid(makeURLStringToTest(0,0,0,0,2)));
+	   //assert(checkExpectedValidity(3,0,0,0,2) == urlVal.isValid(makeURLStringToTest(3,0,0,0,2)));
+	   //assert(checkExpectedValidity(8,0,0,0,2) == urlVal.isValid(makeURLStringToTest(8,0,0,0,2)));
+	   
+	   //I have a hunch that something about the test1 path is wrong, but I don't have time to test right now.
 	   
    }
    /**
