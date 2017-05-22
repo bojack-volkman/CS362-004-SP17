@@ -62,14 +62,12 @@ public class UrlValidatorTest extends TestCase {
 	   String myURL = makeURLStringToTest(0, 0, 0, 0, 0, 0);
 	   System.out.println(myURL);	//Debug
 	   
+	   Boolean expectedValidity = checkExpectedValidity(0, 0, 0, 0, 0, 0);
+	   System.out.println(expectedValidity);
 	   
-	   for(int i = 0;i<10000;i++)
-	   {
-		   
-	   }
    }
    
-   public String  makeURLStringToTest (int scheme_index, int auth_index, int port_index, int path_index, int path_option, int query_index) {
+   public String makeURLStringToTest (int scheme_index, int auth_index, int port_index, int path_index, int path_option, int query_index) {
    
 	   String scheme_choice = test_schemes[scheme_index].item;
 	   String auth_choice = test_auths[auth_index].item;
@@ -82,6 +80,22 @@ public class UrlValidatorTest extends TestCase {
 	   System.out.println(scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
 	   
 	   return (scheme_choice + auth_choice + port_choice + path_choice + option_choice + query_choice);
+	   
+   }
+   
+   public Boolean checkExpectedValidity (int scheme_index, int auth_index, int port_index, int path_index, int path_option, int query_index) {
+	   
+	   Boolean scheme_val = test_schemes[scheme_index].valid;
+	   Boolean auth_val = test_auths[auth_index].valid;
+	   Boolean port_val = test_ports[port_index].valid;
+	   Boolean path_val = test_paths[path_index].valid;
+	   Boolean option_val = test_path_options[path_option].valid;
+	   Boolean query_val = test_queries[query_index].valid;
+	   
+	   //Debug
+	   System.out.println(scheme_val && auth_val && port_val && path_val && option_val && query_val);
+	   
+	   return (scheme_val && auth_val && port_val && path_val && option_val && query_val);
 	   
    }
    
