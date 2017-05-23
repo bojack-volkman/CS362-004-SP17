@@ -50,10 +50,79 @@ public class UrlValidatorTest extends TestCase {
    public void testYourFirstPartition()
    {
 	   
+	   /* 1 letter and 7 letter country codes not accepted (domain is 2:6)
+	    * if(tlds.length < 2){
+	    * 			//throw error
+	    * 
+	    * }
+	    * 2 letter country codes start at 'ac'
+	    *  under variable COUNTRY_CODE_TLDS
+	    *if(tlds.length == 2){
+	    * 
+	    * 	else if(tlds[0] < 'a'){
+	    * 			//throw error
+	    * 	}
+	    * 	else if(tlds[0] = 'a' && tlds[1] < 'c'){
+	    * 			//throw error
+	    * {
+	    * 
+	    * schemes can only be 6 characters long
+	    * if(scheme.length > 6){
+	    * 			//throw error
+	    * }	
+	    * 
+	    * ip address minimum is 0.0.0.1
+	    * if(test.auths < 0.0.0.1){
+	    * 		//throw error
+	    * 
+	    * port minimum is 0
+	    * if(test.auths < 0){
+	    * 		//throw error
+	    * }
+	    * first char of test_paths and test_path_options is always / unless empty
+	    * if(test_paths[0] != '/' || test_path_options[0] != '/'){
+	    * 		//throw error
+	    * }
+	    */
    }
    
    public void testYourSecondPartition(){
-	   
+	   /*
+	    * max length of tlds is 6
+	    * if (tlds.length > 6){
+	    * 			//throw error
+	    * }
+	    * 
+	    * 2 letter country codes only go to 'it'; missing "us" and others (bug)
+	    *  under variable COUNTRY_CODE_TLDS
+	    *if(tlds.length == 2){
+	    * 
+	    * 	if((tlds[0] > 'i'){
+	    * 			//throw error
+	    * 	}
+	    * 	else if(tlds[0] = 'i' && tlds[1] > 't'){
+	    * 			//throw error
+	    * 	} 
+	    * {
+	    * 
+	    * schemes can only be 6 characters long
+	    * if(scheme.length > 6){
+	    * 			//throw error
+	    * }	
+	    * 
+	    * ip address max is 255.255.255.255
+	    * if(test.auths > 255.255.255.255){
+	    * 		//throw error
+	    * }
+	    * port domain max is 65635
+	    * if(test.auths > 65635){
+	    * 		//throw error
+	    * }
+	    * first char of test_paths and test_path_options is always / unless empty
+	    * if(test_paths[0] != '/' || test_path_options[0] != '/'){
+	    * 		//throw error
+	    * }
+	    */
    }
    
    
@@ -196,8 +265,8 @@ public class UrlValidatorTest extends TestCase {
            new ResultPair("go.com", true),
            new ResultPair("go.au", true),
            new ResultPair("0.0.0.0", true),
-           new ResultPair("255.255.255.255", true),
-           new ResultPair("256.256.256.256", false),
+           new ResultPair("255.255.255.255", true), //ip max
+           new ResultPair("256.256.256.256", false), //ip max +1
            new ResultPair("255.com", true),
            new ResultPair("1.2.3.4.5", false),
            new ResultPair("1.2.3.4.", false),
