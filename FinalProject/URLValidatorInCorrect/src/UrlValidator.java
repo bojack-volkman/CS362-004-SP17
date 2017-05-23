@@ -316,7 +316,6 @@ public class UrlValidator implements Serializable {
         }
 
         if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
-            
         	return false;
         	
         }
