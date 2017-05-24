@@ -49,86 +49,118 @@ public class UrlValidatorTest extends TestCase {
    
    public void testYourFirstPartition()
    {
+	   //Test Scheme part of the URL
+	   System.out.println("\t Scheme Test \n");
 	   
-	   /* 1 letter and 7 letter country codes not accepted (domain is 2:6)
-	    * if(tlds.length < 2){
-	    * 			//throw error
-	    * 
-	    * }
-	    * 2 letter country codes start at 'ac'
-	    *  under variable COUNTRY_CODE_TLDS
-	    *if(tlds.length == 2){
-	    * 
-	    * 	else if(tlds[0] < 'a'){
-	    * 			//throw error
-	    * 	}
-	    * 	else if(tlds[0] = 'a' && tlds[1] < 'c'){
-	    * 			//throw error
-	    * {
-	    * 
-	    * schemes can only be 6 characters long
-	    * if(scheme.length > 6){
-	    * 			//throw error
-	    * }	
-	    * 
-	    * ip address minimum is 0.0.0.1
-	    * if(test.auths < 0.0.0.1){
-	    * 		//throw error
-	    * 
-	    * port minimum is 0
-	    * if(test.auths < 0){
-	    * 		//throw error
-	    * }
-	    * first char of test_paths and test_path_options is always / unless empty
-	    * if(test_paths[0] != '/' || test_path_options[0] != '/'){
-	    * 		//throw error
-	    * }
-	    */
+	   //this is a template used for the next 4 partition tests
+	   String[] validStrings = {"http://", "h3tp://", "://", ":/", " "};
+	   UrlValidator testVal = new UrlValidator(validStrings, 0);
+	   
+	   //to change if true or false, add/remove "!" in front of if case
+	   for(int i = 0; i < validStrings.length; i++){
+		   String testString = validStrings[i];
+		   if(	(!testVal.isValidScheme(testString) && i == 0) ||
+				(!testVal.isValidScheme(testString) && i == 1) ||
+				( testVal.isValidScheme(testString) && i == 2) ||
+				( testVal.isValidScheme(testString) && i == 3) ||
+				(!testVal.isValidScheme(testString) && i == 4)	)
+		   {
+			   System.out.println(testString + " Failed SCHEME\n");
+		   } else{
+			   System.out.println(testString + " PASSED\n");
+		   }
+	   }
    }
    
-   public void testYourSecondPartition(){
-	   /*
-	    * max length of tlds is 6
-	    * if (tlds.length > 6){
-	    * 			//throw error
-	    * }
-	    * 
-	    * 2 letter country codes only go to 'it'; missing "us" and others (bug)
-	    *  under variable COUNTRY_CODE_TLDS
-	    *if(tlds.length == 2){
-	    * 
-	    * 	if((tlds[0] > 'i'){
-	    * 			//throw error
-	    * 	}
-	    * 	else if(tlds[0] = 'i' && tlds[1] > 't'){
-	    * 			//throw error
-	    * 	} 
-	    * {
-	    * 
-	    * schemes can only be 6 characters long
-	    * if(scheme.length > 6){
-	    * 			//throw error
-	    * }	
-	    * 
-	    * ip address max is 255.255.255.255
-	    * if(test.auths > 255.255.255.255){
-	    * 		//throw error
-	    * }
-	    * port domain max is 65635
-	    * if(test.auths > 65635){
-	    * 		//throw error
-	    * }
-	    * first char of test_paths and test_path_options is always / unless empty
-	    * if(test_paths[0] != '/' || test_path_options[0] != '/'){
-	    * 		//throw error
-	    * }
-	    */
+   public void testYourSecondPartition()
+   {
+	   //Test Authority part of the URL
+	   System.out.println("\t Authority Test \n"); //respect it, Kyle
+	   
+	   String[] validStrings = {"www.reddit.com", "www.reddit~.com", "www.reddit", "y2k.saveyourselffromthe.robots", " "};
+	   UrlValidator testVal = new UrlValidator(validStrings, 0);
+	   for(int i = 0; i < validStrings.length; i++){
+		   String testString = validStrings[i];
+		   if(	!testVal.isValidAuthority(testString) && i == 0 ||
+				!testVal.isValidAuthority(testString) && i == 1 ||
+				 testVal.isValidAuthority(testString) && i == 2 ||
+				 testVal.isValidAuthority(testString) && i == 3 ||
+				!testVal.isValidAuthority(testString) && i == 4){
+			   System.out.println(testString + " Failed AUTHORITY\n");
+		   } else{
+			   System.out.println(testString + " PASSED\n");
+		   }
+	   }
+   }
+   
+   public void testYourThirdPartition()
+   {
+	   //Test Port part of the URL
+	   System.out.println("\t Port Test \n");
+	   
+	   String[] validStrings = {"www.reddit.com:69", "www.reddit.com:-69", "www.reddit.com:69a", "www.reddit.com:&", " "};
+	   UrlValidator testVal = new UrlValidator(validStrings, 0);
+	   for(int i = 0; i < validStrings.length; i++){
+		   String testString = validStrings[i];
+		   if(	!testVal.isValidAuthority(testString) && i == 0 ||
+				!testVal.isValidAuthority(testString) && i == 1 ||
+				 testVal.isValidAuthority(testString) && i == 2 ||
+				 testVal.isValidAuthority(testString) && i == 3 ||
+				!testVal.isValidAuthority(testString) && i == 4){
+			   System.out.println(testString + " Failed PORT\n");
+		   } else{
+			   System.out.println(testString + " PASSED\n");
+		   }
+	   }
+   }
+   
+   public void testYourFourthPartition()
+   {
+	   //Test Path part of the URL
+	   System.out.println("\t Path Test \n");
+	   
+	   String[] validStrings = {"/test1", "//test1", "/", "test1", " "};
+	   UrlValidator testVal = new UrlValidator(validStrings, 0);
+	   for(int i = 0; i < validStrings.length; i++){
+		   String testString = validStrings[i];
+		   if(	!testVal.isValidPath(testString) && i == 0 ||
+				!testVal.isValidPath(testString) && i == 1 ||
+				 testVal.isValidPath(testString) && i == 2 ||
+				 testVal.isValidPath(testString) && i == 3 ||
+				!testVal.isValidPath(testString) && i == 4){
+			   System.out.println(testString + " Failed PATH\n");
+		   } else{
+			   System.out.println(testString + " PASSED\n");
+		   }
+	   }
+   }
+   
+   public void testYourFifthPartition()
+   {
+	   //Test Query part of the URL
+	   System.out.println("\t Query Test\n");
+	   
+	   String[] validStrings = {"?action=view", "?action=", "/", "??action=view", " "};
+	   UrlValidator testVal = new UrlValidator(validStrings, 0);
+	   for(int i = 0; i < validStrings.length; i++){
+		   String testString = validStrings[i];
+		   if(	!testVal.isValidQuery(testString) && i == 0 ||
+				!testVal.isValidQuery(testString) && i == 1 ||
+				 testVal.isValidQuery(testString) && i == 2 ||
+				 testVal.isValidQuery(testString) && i == 3 ||
+				!testVal.isValidQuery(testString) && i == 4){
+			   System.out.println(testString + " Failed QUERY\n");
+		   } else{
+			   System.out.println(testString + " PASSED\n");
+		   }
+	   }
    }
    
    
    /************************************/
    public void testIsValid()
    {
+	   /*
 	   int num_schemes = 9;
 	   int num_auths = 19;
 	   int num_ports = 7;
@@ -139,6 +171,7 @@ public class UrlValidatorTest extends TestCase {
 	   String myURL;
 	   Boolean expectedValidity, actualValidity;
 	   UrlValidator urlValidator = new UrlValidator();
+	   
 	   
 	   for (int i = 0; i < num_schemes; i++) {
 		   
@@ -178,7 +211,7 @@ public class UrlValidatorTest extends TestCase {
 	   System.out.println("==================SUMMARY=====================");
 	   System.out.println("Cases passed: " + cases_passed + " out of " + total_cases);
 	   System.out.println("Cases failed: " + cases_failed + " out of " + total_cases);	   
-	   
+	   */
    }
    
    
