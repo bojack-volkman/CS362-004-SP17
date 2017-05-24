@@ -43,7 +43,30 @@ public class UrlValidatorTest extends TestCase {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   System.out.println(urlVal.isValid("http://www.amazon.com"));
 	   
-	   
+	   //the two urls in UrlsToVerify.txt
+           assertTrue(urlVal.isValid("http://www.google.com"));
+	   assertFalse(urlVal.isValid("https://///www.google.com"));
+
+	   //test valid and invalid scheme
+           assertTrue(urlVal.isValid("ftp://www.google.com"));
+           assertFalse(urlVal.isValid("3ht://www.google.com"));
+
+	   //test valid and invalid authority
+           assertTrue(urlVal.isValid("ftp://255.com"));
+           assertFalse(urlVal.isValid("h3t://go.a1a"));
+
+	   //test valid and invalid port
+           assertTrue(urlVal.isValid("http://255.com:80"));
+           assertFalse(urlVal.isValid("ftp://go.au:-1"));
+
+	   //test valid and invalid path
+           assertTrue(urlVal.isValid("h3t://www.google.com:0/test1"));
+           assertFalse(urlVal.isValid("http://.go.com:80/test1//file"));
+
+	   //test valid query
+           assertTrue(urlVal.isValid("ftp://go.au:65535/t123?action=view"));
+
+
    }
    
    
