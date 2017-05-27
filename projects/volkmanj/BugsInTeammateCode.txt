@@ -1,0 +1,82 @@
+Bug-Reports
+
+Bug 1
+Title: Village card improperly adds number of actions to player action count
+
+Project: jacomary/dominion
+Version: Mary Jacobsen’s assignment 2 submission
+
+Reported by: Jake Volkman
+Email: volkmanj@oregonstate.edu
+Created: 5/27/2017
+Updated: N/A
+Resolved: N/A
+Type: Bug
+Status: Open
+Priority: Major
+Resolution: Not resolved
+Affected Version: Mary Jacobsen’s assignment 2 submission
+File name: dominion.c
+Environment: Windows 10 Pro, Eclipse Java EE, GCC C Compiler, flip.oregonstate.edu
+
+Description: The number of actions that a player had after playing a village card is incorrect. It appears to be the negative of what it is supposed to be. 
+
+Code causing Bug:
+playVillage function has a ‘-‘ operator instead of a ‘+’ operator where the function is supposed to add 2 to the number of player actions remaining.
+
+Suggested Fix:
+Change the ‘-‘ operator to a ‘+’ operator.
+----------------------------------------------------------
+
+Bug 2
+Title: Smithy card adds incorrect number of cards to hand
+
+Project: jacomary/dominion
+Version: Mary Jacobsen’s assignment 2 submission
+
+Reported by: Jake Volkman
+Email: volkmanj@oregonstate.edu
+Created: 5/27/2017
+Updated: N/A
+Resolved: N/A
+Type: Bug
+Status: Open
+Priority: Major
+Resolution: Not resolved
+Affected Version: Mary Jacobsen’s assignment 2 submission
+File name: dominion.c
+Environment: Windows 10 Pro, Eclipse Java EE, GCC C Compiler, flip.oregonstate.edu
+Description: The number of cards that a player is supposed to draw when Smithy is played is 3 cards. It appear that the number of cards actually drawn is 2 cards.
+
+Code causing Bug:
+playSmithy function has an iterative loop that draws cards from the deck. The counter of this loop executes for numbers 0 and 1. That is 1 iteration less than required to draw 3 cards.
+
+Suggested Fix:
+Change the ‘<’ operator in the counter condition to ‘<=’ to add 1 more iteration and draw another card.
+
+-------------------------------
+Bug 3
+Title: Adventurer card often results in segmentation fault when 2 treasures are drawn.
+
+Project: jacomary/dominion
+Version: Mary Jacobsen’s assignment 2 submission
+
+Reported by: Jake Volkman
+Email: volkmanj@oregonstate.edu
+Created: 5/27/2017
+Updated: N/A
+Resolved: N/A
+Type: Bug
+Status: Open
+Priority: Major
+Resolution: Not resolved
+Affected Version: Mary Jacobsen’s assignment 2 submission
+File name: dominion.c
+Environment: Windows 10 Pro, Eclipse Java EE, GCC C Compiler, flip.oregonstate.edu
+Description: Occasionally, the program will encounter a segmentation fault when the number of treasures drawn from an Adventurer card is equal to 2.
+
+Code causing Bug:
+playAdventurer function receives a drawn treasure count of 2. The counter ‘z’ is incremented when a treasure is not drawn. ‘z’ is used as an index for accessing the array temphand[z-1] in a while loop that executes z-1 times. When z contains a value of 0, the program attempts to access temphand[-1] which cannot exist.
+
+Suggested Fix:
+Change the ‘>=’ operator in the while loop condition to ‘>’ to reduce the loop by 1 iteration and prevent the segmentation fault.
