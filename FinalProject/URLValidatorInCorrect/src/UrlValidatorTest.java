@@ -63,6 +63,12 @@ public class UrlValidatorTest extends TestCase {
 	   		System.out.println("Invalid URL: 3ht://www.google.com triggered true return value");	
  	   	}
 
+		//test an empty scheme
+		if(urlVal.isValid("www.255.com") == false)
+		{
+			System.out.println("Valid URL: www.255.com triggered false return value");
+		}
+
 	   	//test valid and invalid authority
 		if (urlVal.isValid("ftp://255.com") == false)
 	   	{
