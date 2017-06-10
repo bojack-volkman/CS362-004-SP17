@@ -34,16 +34,80 @@ public class UrlValidatorTest extends TestCase {
 
    public UrlValidatorTest(String testName) {
       super(testName);
-   }
-
-   
+   } 
    
    public void testManualTest()
    {
-	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-	   System.out.println(urlVal.isValid("http://www.amazon.com"));
+	   	UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   	System.out.println(urlVal.isValid("http://www.amazon.com"));
 	   
-	   
+	   	//the two urls in UrlsToVerify.txt
+           	if (urlVal.isValid("http://www.google.com") == false)
+	   	{
+	   		System.out.println("Valid URL: http://www.google.com triggered false return value");	
+	   	}
+
+	   	if(urlVal.isValid("https://///www.google.com") == true)
+	   	{		
+	   		System.out.println("Invalid URL: http://///www.google.com triggered true return value");	
+ 	   	}
+
+	   	//test valid and invalid scheme
+		if (urlVal.isValid("ftp://www.google.com") == false)
+	   	{
+	   		System.out.println("Valid URL: ftp://www.google.com triggered false return value");	
+	   	}
+
+	   	if(urlVal.isValid("3ht://www.google.com") == true)
+	   	{	
+	   		System.out.println("Invalid URL: 3ht://www.google.com triggered true return value");	
+ 	   	}
+
+		//test an empty scheme
+		if(urlVal.isValid("www.255.com") == false)
+		{
+			System.out.println("Valid URL: www.255.com triggered false return value");
+		}
+
+	   	//test valid and invalid authority
+		if (urlVal.isValid("ftp://255.com") == false)
+	   	{
+	   		System.out.println("Valid URL: ftp://255.com triggered false return value");	
+	   	}
+
+	   	if(urlVal.isValid("h3t://go.a1a") == true)
+	   	{	
+	   		System.out.println("Invalid URL: h3t://go.a1a triggered true return value");	
+ 	   	}
+
+	   	//test valid and invalid port
+		if (urlVal.isValid("http://255.com:80") == false)
+	   	{
+	   		System.out.println("Valid URL: http://255.com:80 triggered false return value");	
+	   	}
+
+	   	if(urlVal.isValid("ftp://go.au:-1") == true)
+	   	{	
+	   		System.out.println("Invalid URL: ftp://go.au:-1 triggered true return value");	
+ 	   	}
+
+	   	//test valid and invalid path
+		if (urlVal.isValid("h3t://www.google.com:0/test1") == false)
+	   	{
+	   		System.out.println("Valid URL: h3t://www.google.com:0/test1 triggered false return value");	
+	   	}
+
+	   	if(urlVal.isValid("http://.go.com:80/test1//file") == true)
+	   	{	
+	   		System.out.println("Invalid URL: http://.go.com:80/test1//file triggered true return value");	
+ 	   	}
+
+	   	//test valid query	
+		if (urlVal.isValid("ftp://go.au:65535/t123?action=view") == false)
+	   	{
+	   		System.out.println("Valid URL: ftp://go.au:65535/t123?action=view triggered false return value");	
+	   	}
+
    }
    
    
