@@ -110,24 +110,23 @@ public class UrlValidatorTest extends TestCase {
 
    }
    
-   
+ //this is a template function used for the next 4 partition tests as well
    public void testYourFirstPartition()
    {
 	   //Test Scheme part of the URL
 	   System.out.println("\t Scheme Test \n");
 	   
-	   //this is a template used for the next 4 partition tests
 	   String[] validStrings = {"http://", "h3tp://", "://", ":/", " "};
 	   UrlValidator testVal = new UrlValidator(validStrings, 0);
 	   
 	   //to change if true or false, add/remove "!" in front of if case
 	   for(int i = 0; i < validStrings.length; i++){
 		   String testString = validStrings[i];
-		   if(	(!testVal.isValidScheme(testString) && i == 0) ||
-				(!testVal.isValidScheme(testString) && i == 1) ||
+		   if(	( testVal.isValidScheme(testString) && i == 0) ||
+				( testVal.isValidScheme(testString) && i == 1) ||
 				( testVal.isValidScheme(testString) && i == 2) ||
 				( testVal.isValidScheme(testString) && i == 3) ||
-				(!testVal.isValidScheme(testString) && i == 4)	)
+				( testVal.isValidScheme(testString) && i == 4)	)
 		   {
 			   System.out.println(testString + " Failed SCHEME\n");
 		   } else{
@@ -145,11 +144,11 @@ public class UrlValidatorTest extends TestCase {
 	   UrlValidator testVal = new UrlValidator(validStrings, 0);
 	   for(int i = 0; i < validStrings.length; i++){
 		   String testString = validStrings[i];
-		   if(	!testVal.isValidAuthority(testString) && i == 0 ||
-				!testVal.isValidAuthority(testString) && i == 1 ||
+		   if(	testVal.isValidAuthority(testString) && i == 0 ||
+				testVal.isValidAuthority(testString) && i == 1 ||
 				 testVal.isValidAuthority(testString) && i == 2 ||
 				 testVal.isValidAuthority(testString) && i == 3 ||
-				!testVal.isValidAuthority(testString) && i == 4){
+				testVal.isValidAuthority(testString) && i == 4){
 			   System.out.println(testString + " Failed AUTHORITY\n");
 		   } else{
 			   System.out.println(testString + " PASSED\n");
@@ -166,11 +165,11 @@ public class UrlValidatorTest extends TestCase {
 	   UrlValidator testVal = new UrlValidator(validStrings, 0);
 	   for(int i = 0; i < validStrings.length; i++){
 		   String testString = validStrings[i];
-		   if(	!testVal.isValidAuthority(testString) && i == 0 ||
-				!testVal.isValidAuthority(testString) && i == 1 ||
+		   if(	 testVal.isValidAuthority(testString) && i == 0 ||
+				 testVal.isValidAuthority(testString) && i == 1 ||
 				 testVal.isValidAuthority(testString) && i == 2 ||
 				 testVal.isValidAuthority(testString) && i == 3 ||
-				!testVal.isValidAuthority(testString) && i == 4){
+				 testVal.isValidAuthority(testString) && i == 4){
 			   System.out.println(testString + " Failed PORT\n");
 		   } else{
 			   System.out.println(testString + " PASSED\n");
